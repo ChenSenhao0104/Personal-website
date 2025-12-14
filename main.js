@@ -1,199 +1,209 @@
-// main.js
 document.addEventListener('DOMContentLoaded', () => {
-    // =========================
-    // 1. 自定义光标（桌面端）
-    // =========================
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
+  // =========================
+  // 0. 防御性检查（保证在 CDN 加载失败时不直接报错）
+  // =========================
+  const hasGSAP = typeof window.gsap !== 'undefined';
+  const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
+  const hasLenis = typeof window.Lenis !== 'undefined';
 
-    if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorOutline) {
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+  if (hasGSAP && hasScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  } else {
+    console.warn('[INIT] GSAP 或 ScrollTrigger 没加载成功，动画会降级。');
+  }
 
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
+  // =========================
+  // 1. 自定义光标（与当前 HTML/CSS 对齐）
+  // =========================
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorOutline = document.querySelector('.cursor-outline');
 
-            cursorOutline.style.left = `${posX}px`;
-            cursorOutline.style.top = `${posY}px`;
-        });
+  if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorOutline) {
+    window.addEventListener('mousemove', (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
 
-        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
-        hoverTargets.forEach((target) => {
-            target.addEventListener('mouseenter', () => {
-                document.body.classList.add('hovering');
-            });
-            target.addEventListener('mouseleave', () => {
-                document.body.classList.remove('hovering');
-            });
-        });
-    } else {
-        // 触屏设备隐藏自定义光标
-        if (cursorDot) cursorDot.style.display = 'none';
-        if (cursorOutline) cursorOutline.style.display = 'none';
-    }
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
 
-    // =========================
-    // 2. Hero 区鼠标轻微跟随
-    // =========================
-    const heroSection = document.querySelector('.hero-section');
-    const heroTitle = document.querySelector('.hero-title');
-    const heroVisual = document.querySelector('.hero-visual-container');
-
-    if (heroSection) {
-        heroSection.addEventListener('mousemove', (e) => {
-            const relX = e.clientX / window.innerWidth - 0.5; // -0.5 ~ 0.5
-            const relY = e.clientY / window.innerHeight - 0.5;
-
-            if (heroTitle instanceof HTMLElement) {
-                heroTitle.style.transform = `translate(${relX * -10}px, ${relY * -5}px)`;
-            }
-            if (heroVisual instanceof HTMLElement) {
-                heroVisual.style.transform = `translate(${relX * 12}px, ${relY * 8}px)`;
-            }
-        });
-    }
-
-    // =========================
-    // 3. Hero 进场动画（GSAP）
-    // =========================
-    if (window.gsap) {
-        const { gsap } = window;
-
-        const heroTl = gsap.timeline({
-            defaults: { duration: 0.8, ease: 'power3.out' }
-        });
-
-        heroTl
-            .from('.hero-subtitle', {
-                y: 40,
-                autoAlpha: 0
-            })
-            .from(
-                '.hero-title .line-1',
-                {
-                    y: 80,
-                    autoAlpha: 0
-                },
-                '-=0.4'
-            )
-            .from(
-                '.hero-title .line-2',
-                {
-                    y: 80,
-                    autoAlpha: 0
-                },
-                '-=0.6'
-            )
-            .from(
-                '.hero-img-placeholder',
-                {
-                    y: 60,
-                    autoAlpha: 0
-                },
-                '-=0.5'
-            )
-            .from(
-                '.hero-footer-bar',
-                {
-                    y: 30,
-                    autoAlpha: 0
-                },
-                '-=0.4'
-            );
-    } else {
-        console.warn('GSAP 未成功加载，Hero 动画将退化为静态。');
-        // 兜底：如果没有 GSAP，就直接让 Hero 相关 reveal 都可见
-        document
-            .querySelectorAll('.hero-subtitle, .hero-title, .hero-img-placeholder, .hero-footer-bar')
-            .forEach((el) => el.classList && el.classList.add('visible'));
-    }
-
-    // =========================
-    // 4. IntersectionObserver 驱动的滚动 reveal
-    // =========================
-    // 你的 style.css 里已经有：
-    // .reveal { opacity: 0; transform: translateY(30px); ... }
-    // .reveal.visible { opacity: 1; transform: translateY(0); }
-    const revealEls = document.querySelectorAll('.reveal');
-
-    if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const target = entry.target;
-                        const delayAttr = target.getAttribute('data-delay');
-                        const delay = delayAttr ? parseInt(delayAttr, 10) : 0;
-
-                        if (delay > 0) {
-                            setTimeout(() => {
-                                target.classList.add('visible');
-                            }, delay);
-                        } else {
-                            target.classList.add('visible');
-                        }
-
-                        observer.unobserve(target);
-                    }
-                });
-            },
-            {
-                root: null,
-                threshold: 0.15
-            }
-        );
-
-        revealEls.forEach((el) => io.observe(el));
-    } else {
-        // 非现代浏览器兜底：直接全部显示
-        revealEls.forEach((el) => el.classList.add('visible'));
-    }
-
-    // =========================
-    // 5. 导航栏滚动阴影
-    // =========================
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (!navbar) return;
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
-        } else {
-            navbar.style.boxShadow = 'none';
-        }
+      cursorOutline.style.left = `${posX}px`;
+      cursorOutline.style.top = `${posY}px`;
     });
 
-    // =========================
-    // 6. 移动端导航折叠
-    // =========================
-    const mobileToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const navCta = document.querySelector('.nav-cta');
+    const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+    hoverTargets.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('hovering');
+      });
+    });
+  } else {
+    // 触屏设备：隐藏自定义光标
+    if (cursorDot) cursorDot.style.display = 'none';
+    if (cursorOutline) cursorOutline.style.display = 'none';
+  }
 
-    if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', () => {
-            const isOpen = navLinks.getAttribute('data-open') === 'true';
+  // =========================
+  // 2. Lenis 平滑滚动（核心升级）
+  // =========================
+  if (hasLenis) {
+    const lenis = new Lenis({
+      duration: 1.2,       // 滚动“重量感”
+      smoothWheel: true,
+      smoothTouch: false
+    });
 
-            if (isOpen) {
-                navLinks.setAttribute('data-open', 'false');
-                navLinks.style.display = 'none';
-                if (navCta instanceof HTMLElement) navCta.style.display = 'none';
-            } else {
-                navLinks.setAttribute('data-open', 'true');
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '70px';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.background = '#fff';
-                navLinks.style.borderTop = '1px solid #000';
-                navLinks.style.padding = '16px 24px';
-                if (navCta instanceof HTMLElement) {
-                    navCta.style.display = 'block';
-                    navCta.style.marginTop = '12px';
-                }
-            }
-        });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     }
+    requestAnimationFrame(raf);
+
+    // 让 ScrollTrigger 感知 Lenis 的滚动
+    if (hasScrollTrigger) {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
+
+    console.log('[INIT] Lenis smooth scroll 已启用');
+  } else {
+    console.warn('[INIT] Lenis 未加载，使用原生滚动。');
+  }
+
+  if (!hasGSAP) {
+    // 如果连 GSAP 都没有，就只保留自定义光标，直接返回
+    return;
+  }
+
+  // =========================
+  // 3. Hero 首屏入场时间轴（对齐你现在的 Hero 结构）
+  // =========================
+  const heroTimeline = gsap.timeline({
+    defaults: { duration: 0.9, ease: 'power3.out' }
+  });
+
+  heroTimeline
+    .from('.hero-subtitle', {
+      y: 40,
+      autoAlpha: 0
+    })
+    .from(
+      '.hero-title .line-1',
+      {
+        y: 120,
+        autoAlpha: 0
+      },
+      '-=0.5'
+    )
+    .from(
+      '.hero-title .line-2',
+      {
+        y: 120,
+        autoAlpha: 0
+      },
+      '-=0.7'
+    )
+    .from(
+      '.hero-visual-container',
+      {
+        x: 80,
+        autoAlpha: 0
+      },
+      '-=0.6'
+    )
+    .from(
+      '.hero-footer-bar',
+      {
+        y: 40,
+        autoAlpha: 0
+      },
+      '-=0.4'
+    );
+
+  // =========================
+  // 4. ScrollTrigger：滚动 Reveal 动画
+  // =========================
+  if (hasScrollTrigger) {
+    const revealFromBottom = (selector, yOffset = 60) => {
+      gsap.utils.toArray(selector).forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          },
+          y: yOffset,
+          autoAlpha: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        });
+      });
+    };
+
+    // Intro：右侧 4 个格子
+    revealFromBottom('.intro-section .content-box', 40);
+
+    // 各 Section 标题（ON TRACK / PODIUM / OFF TRACK）
+    revealFromBottom('.section-header', 50);
+
+    // ON TRACK：每一行项目
+    revealFromBottom('.project-row', 60);
+
+    // THE PODIUM：每一行奖项
+    revealFromBottom('#podium .table-row', 40);
+
+    // OFF TRACK：每一张生活卡片
+    revealFromBottom('.offtrack-grid .ot-card', 50);
+
+    // Contact：整体块
+    revealFromBottom('.contact-inner', 40);
+
+    console.log('[INIT] ScrollTrigger reveal 动画已注册');
+  }
+
+  // =========================
+  // 5. 导航滚动效果（视觉小优化）
+  // =========================
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+  }
+
+  // =========================
+  // 6. 移动端导航展开（保留）
+  // =========================
+  const mobileToggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const navCta = document.querySelector('.nav-cta');
+
+  if (mobileToggle && navLinks) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      if (isOpen) {
+        navLinks.style.display = 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '100%';
+        navLinks.style.left = '0';
+        navLinks.style.width = '100%';
+        navLinks.style.background = '#ffffff';
+        navLinks.style.padding = '16px 24px';
+        navLinks.style.borderTop = '1px solid #111';
+        navLinks.style.gap = '12px';
+      } else {
+        navLinks.style.display = 'none';
+      }
+
+      if (navCta) {
+        navCta.style.display = isOpen ? 'none' : '';
+      }
+    });
+  }
 });
