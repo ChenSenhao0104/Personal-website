@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senhao Chen | Industrial Intelligence & VR</title>
+    <meta name="description" content="Senhao Chen - Computer Vision & VR Engineering Portfolio.">
+    
+    <!-- Google Fonts: Oswald (Bold/Condensed), Inter (Tech/Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation (Sticky & Bordered) -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <a href="#hero" class="nav-logo hover-target">SC<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#on-track" class="hover-target">ON TRACK</a></li>
+                <li><a href="#podium" class="hover-target">PODIUM</a></li>
+                <li><a href="#off-track" class="hover-target">OFF TRACK</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta hover-target">LET'S TALK</a>
+            <div class="mobile-menu-toggle hover-target">
+                <span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Maximum Impact -->
+    <section id="hero" class="hero-section">
+        <div class="hero-grid">
+            <div class="hero-main-text">
+                <p class="hero-subtitle reveal">COMPUTER VISION / VR / ENGINEERING</p>
+                <h1 class="hero-title reveal" data-delay="100">
+                    <span class="line-1">SENHAO</span>
+                    <span class="line-2">CHEN</span>
+                </h1>
+            </div>
+            <div class="hero-visual-container reveal" data-delay="200">
+                <!-- Decorative Tech Elements -->
+                <div class="tech-crosshair top-left"></div>
+                <div class="tech-crosshair bottom-right"></div>
+                <div class="hero-img-placeholder hover-target">
+                    <div class="img-content">
+                        <span>PORTRAIT_IMG.JPG</span>
+                        <div class="tech-lines"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-footer-bar reveal" data-delay="400">
+            <div class="hf-item">HANGZHOU, CN</div>
+            <div class="hf-item highlight-text">SCROLL TO EXPLORE ↓</div>
+            <div class="hf-item">EST. 2024</div>
+        </div>
+    </section>
+
+    <!-- Marquee Section (Scrolling Text) -->
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <span>ENGINEERED FOR PRECISION // DRIVEN BY SPEED // COMPUTER VISION // VIRTUAL REALITY // INDUSTRIAL INTELLIGENCE // </span>
+            <span>ENGINEERED FOR PRECISION // DRIVEN BY SPEED // COMPUTER VISION // VIRTUAL REALITY // INDUSTRIAL INTELLIGENCE // </span>
+        </div>
+    </div>
+
+    <!-- Intro / Stats (Grid Layout) -->
+    <section id="intro" class="intro-section">
+        <div class="grid-container">
+            <div class="grid-item label-box">STATUS</div>
+            <div class="grid-item content-box hover-target">
+                <h3>HDU</h3>
+                <p>CS Undergrad</p>
+            </div>
+            <div class="grid-item content-box hover-target">
+                <h3>FOCUS</h3>
+                <p>CV & VR Tech</p>
+            </div>
+            <div class="grid-item content-box hover-target">
+                <h3>MODE</h3>
+                <p>Engineering Oriented</p>
+            </div>
+            <div class="grid-item content-box hover-target highlight-bg">
+                <h3>PLUS</h3>
+                <p>F1 & Volunteer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- On Track Section (Raw Layout) -->
+    <section id="on-track" class="section-padding border-top">
+        <div class="container-fluid">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">ON TRACK</h2>
+            </div>
+
+            <div class="project-list">
+                
+                <!-- Project 1 -->
+                <div class="project-row reveal">
+                    <div class="p-meta">
+                        <span class="p-id">PROJ_001</span>
+                        <span class="p-client">FAW-VW</span>
+                    </div>
+                    <div class="p-main">
+                        <h3 class="p-title hover-target">机动车整车检测<br>VR 教培与考核系统</h3>
+                        <p class="p-desc">基于 Unity 搭建的虚拟教培平台，模拟真实机动车检测线，覆盖前束调整、大灯检测等工位，已在企业投入使用。</p>
+                        <div class="p-tags">
+                            <span>UNITY 3D</span>
+                            <span>VR SIMULATION</span>
+                        </div>
+                    </div>
+                    <div class="p-visual hover-target">
+                        <div class="placeholder-box">
+                            <span>VISUAL_PREVIEW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-row reveal">
+                    <div class="p-meta">
+                        <span class="p-id">PROJ_002</span>
+                        <span class="p-client">HAN'S LASER</span>
+                    </div>
+                    <div class="p-main">
+                        <h3 class="p-title hover-target">车辆零部件表面缺陷<br>视觉检测系统</h3>
+                        <p class="p-desc">基于 YOLOv8 的工业级视觉检测算法，从数据集构建到 ONNX 推理部署，实现划伤、凹坑等缺陷的自动识别与可视化。</p>
+                        <div class="p-tags">
+                            <span>YOLOv8</span>
+                            <span>COMPUTER VISION</span>
+                        </div>
+                    </div>
+                    <div class="p-visual hover-target">
+                        <div class="placeholder-box">
+                            <span>VISUAL_PREVIEW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-row reveal">
+                    <div class="p-meta">
+                        <span class="p-id">PROJ_003</span>
+                        <span class="p-client">COMPETITION</span>
+                    </div>
+                    <div class="p-main">
+                        <h3 class="p-title hover-target">2026 杭州绿色低碳<br>产业博览会方案</h3>
+                        <p class="p-desc">策划「绿色低碳 + 数字科技 + 城市会展」顶层方案，探索绿色产业与数字展陈的结合路径。</p>
+                        <div class="p-tags">
+                            <span>STRATEGY</span>
+                            <span>EXPO DESIGN</span>
+                        </div>
+                    </div>
+                    <div class="p-visual hover-target">
+                        <div class="placeholder-box">
+                            <span>VISUAL_PREVIEW</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- The Podium Section (Data Table Style) -->
+    <section id="podium" class="section-padding bg-dark text-light">
+        <div class="container-fluid">
+            <div class="section-header reveal">
+                <span class="section-number text-neon">02</span>
+                <h2 class="section-title">THE PODIUM</h2>
+            </div>
+
+            <div class="podium-table reveal">
+                <div class="table-header">
+                    <span>LEVEL</span>
+                    <span>AWARD NAME</span>
+                    <span>RESULT</span>
+                </div>
+                
+                <div class="table-row hover-target">
+                    <span class="col-level">NATIONAL</span>
+                    <span class="col-name">全国三维数字化创新设计大赛</span>
+                    <span class="col-result">1ST PLACE</span>
+                </div>
+                
+                <div class="table-row hover-target">
+                    <span class="col-level">NATIONAL</span>
+                    <span class="col-name">中国虚拟现实大赛</span>
+                    <span class="col-result">1ST PLACE</span>
+                </div>
+
+                <div class="table-row hover-target">
+                    <span class="col-level">NATIONAL</span>
+                    <span class="col-name">全国高校商业精英挑战赛文旅与会展创新创业实践竞赛</span>
+                    <span class="col-result">1ST PLACE</span>
+                </div>
+
+                <div class="table-row hover-target">
+                    <span class="col-level">NATIONAL</span>
+                    <span class="col-name">全国人工智能应用场景创新挑战赛</span>
+                    <span class="col-result">2ND PLACE</span>
+                </div>
+
+                <div class="table-row hover-target">
+                    <span class="col-level">NATIONAL</span>
+                    <span class="col-name">中国好创意暨全国数字艺术设计大赛</span>
+                    <span class="col-result">2ND PLACE</span>
+                </div>
+
+                <div class="table-row hover-target">
+                    <span class="col-level">PROVINCIAL</span>
+                    <span class="col-name">浙江省大学生电子商务竞赛</span>
+                    <span class="col-result">1ST PLACE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Off Track Section (Masonry/Grid) -->
+    <section id="off-track" class="section-padding">
+        <div class="container-fluid">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">OFF TRACK</h2>
+            </div>
+
+            <div class="offtrack-grid">
+                <div class="ot-card large reveal hover-target">
+                    <div class="ot-content">
+                        <span class="ot-icon">🏎️</span>
+                        <h3>F1 & KARTING</h3>
+                        <p>速度狂热者。在卡丁车赛道上，我习惯用身体记住“极限在哪”。</p>
+                    </div>
+                </div>
+                
+                <div class="ot-card reveal hover-target">
+                    <div class="ot-content">
+                        <span class="ot-icon">🏀</span>
+                        <h3>SPORTS</h3>
+                        <p>篮球、手球、帆船。</p>
+                    </div>
+                </div>
+
+                <div class="ot-card reveal hover-target highlight-border">
+                    <div class="ot-content">
+                        <span class="ot-icon">🤝</span>
+                        <h3>VOLUNTEER</h3>
+                        <p>临安半马、家庭帆船赛志愿者。</p>
+                    </div>
+                </div>
+
+                <div class="ot-card wide reveal hover-target bg-neon">
+                    <div class="ot-content text-dark">
+                        <span class="ot-icon">🚀</span>
+                        <h3>TECH CONFERENCES</h3>
+                        <p>WAIC、华为全连接大会常客。保持对前沿技术的持续关注。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-inner reveal">
+            <h2 class="big-cta hover-target">LET'S<br>COLLABORATE</h2>
+            
+            <div class="contact-info">
+                <div class="ci-item">
+                    <span class="label">EMAIL</span>
+                    <a href="mailto:1764536087@qq.com" class="value hover-target">1764536087@qq.com</a>
+                </div>
+                <div class="ci-item">
+                    <span class="label">GITHUB</span>
+                    <a href="https://github.com/ChenSenhao0104" target="_blank" class="value hover-target">ChenSenhao0104</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="main-footer">
+            <div class="marquee-content slow">
+                <span>SENHAO CHEN // PORTFOLIO 2024 // ENGINEERED IN HANGZHOU // SENHAO CHEN // PORTFOLIO 2024 // ENGINEERED IN HANGZHOU //</span>
+            </div>
+        </footer>
+    </section>
+
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Your main script -->
+    <script src="main.js"></script>
+</body>
+</html>
