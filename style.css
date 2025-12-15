@@ -565,7 +565,7 @@ body.hovering .cursor-outline {
 }
 
 /* Animations */
-.reveal {
+/* .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -573,7 +573,20 @@ body.hovering .cursor-outline {
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+} */
+
+/* 动画元素的基础样式：只保留过渡，不再负责“隐藏” */
+/* 可以直接删掉 .reveal 这段，或者改成这样 */
+.reveal {
+    /* 不再强制隐藏，给一点默认过渡即可 */
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
 
 /* Responsive */
 @media (max-width: 900px) {
